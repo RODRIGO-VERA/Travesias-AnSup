@@ -20,16 +20,10 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50/95 backdrop-blur">
       <div className="section flex h-16 items-center justify-between gap-6">
-        <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Travesías AnSup — Inicio">
-          <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10">
-            <Image src="/images/logo-tabla.jpg" alt="Travesías AnSup" fill className="object-cover" />
+        <Link href="/" className="flex items-center shrink-0" aria-label="Travesías AnSup — Inicio">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl ring-1 ring-teal-500/40">
+            <Image src="/images/logo-oficial-icono.png" alt="Travesías AnSup" fill className="object-cover" />
           </div>
-          <span
-            className="font-display text-base font-semibold leading-none text-deep-800 whitespace-nowrap hidden sm:inline"
-            style={{ letterSpacing: "0.04em" }}
-          >
-            Travesías AnSup
-          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-5 flex-1 justify-center min-w-0">
