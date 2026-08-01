@@ -1,0 +1,16 @@
+[
+  { "id": "f1", "pregunta": "¿Necesito experiencia previa?", "respuesta": "No es necesaria para los panoramas de nivel Principiante o Familiar. Nuestro guía entrega una instrucción inicial antes de cada salida.", "orden": 1, "activo": true },
+  { "id": "f2", "pregunta": "¿Puedo participar si no tengo tabla?", "respuesta": "Sí, puedes arrendar el equipamiento completo directamente al reservar.", "orden": 2, "activo": true },
+  { "id": "f3", "pregunta": "¿Se arrienda equipamiento?", "respuesta": "Sí: tabla, remo, traje de neopreno, chaleco salvavidas, calzado acuático y bolsa impermeable.", "orden": 3, "activo": true },
+  { "id": "f4", "pregunta": "¿Qué ropa debo llevar?", "respuesta": "Ropa deportiva que puedas mojar, traje de baño debajo, y una muda de ropa seca para después.", "orden": 4, "activo": true },
+  { "id": "f5", "pregunta": "¿Cuál es la edad mínima?", "respuesta": "Depende del panorama, entre 6 y 12 años según el nivel de dificultad. Puedes revisarlo en la ficha de cada panorama.", "orden": 5, "activo": true },
+  { "id": "f6", "pregunta": "¿Qué ocurre si llueve?", "respuesta": "La lluvia leve no suspende la actividad. La decisión final por condiciones climáticas la toma siempre el administrador.", "orden": 6, "activo": true },
+  { "id": "f7", "pregunta": "¿Qué pasa si se suspende el recorrido?", "respuesta": "Te contactaremos para reprogramar tu travesía sin costo adicional.", "orden": 7, "activo": true },
+  { "id": "f8", "pregunta": "¿Cuánto dura la actividad?", "respuesta": "Entre 2 y 3 horas dependiendo del panorama elegido.", "orden": 8, "activo": true },
+  { "id": "f9", "pregunta": "¿Dónde está el punto de encuentro?", "respuesta": "Se indica en la ficha de cada panorama y se confirma junto con la aprobación de tu reserva.", "orden": 9, "activo": true },
+  { "id": "f10", "pregunta": "¿Puedo cancelar?", "respuesta": "Sí, puedes solicitar la cancelación con tu código de reserva. Revisa nuestras condiciones antes de reservar.", "orden": 10, "activo": true },
+  { "id": "f11", "pregunta": "¿Se aceptan grupos?", "respuesta": "Sí, contamos con códigos y actividades especiales para grupos y empresas.", "orden": 11, "activo": true },
+  { "id": "f12", "pregunta": "¿Puedo reservar una actividad privada?", "respuesta": "Sí, escríbenos por WhatsApp para coordinar fecha, horario y valor.", "orden": 12, "activo": true },
+  { "id": "f13", "pregunta": "¿La actividad incluye guía?", "respuesta": "Sí, todas nuestras travesías incluyen un guía certificado.", "orden": 13, "activo": true },
+  { "id": "f14", "pregunta": "¿Se entrega chaleco salvavidas?", "respuesta": "Sí, su uso es obligatorio y está incluido en todas las travesías.", "orden": 14, "activo": true }
+]
