@@ -5,49 +5,55 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Paleta extraída de las fotografías de Travesías AnSup
+        // Paleta "elegante negro" — fondo negro profundo, acento dorado.
+        // deep: se mantiene sin tocar (se usa como botón/fondo Y como texto
+        // en decenas de archivos; la legibilidad del texto se resuelve en
+        // globals.css). sand y teal sí se redefinen porque solo se usan
+        // como fondo/acento respectivamente, así que no rompen nada.
         deep: {
-          DEFAULT: "#0E3A4C", // azul profundo del agua
+          DEFAULT: "#0E3A4C",
           50: "#E7EEF1",
           100: "#C4D6DC",
           400: "#255E75",
           600: "#0E3A4C",
           800: "#092832",
-          900: "#061B22",
+          900: "#050D10",
         },
         teal: {
-          DEFAULT: "#189AA6", // turquesa de las tablas AF
-          50: "#E7F6F7",
-          100: "#C7ECEF",
-          300: "#5BC2CC",
-          500: "#189AA6",
-          600: "#127C86",
-          700: "#0C5A61",
+          // repurposed as el acento dorado elegante
+          DEFAULT: "#C9A24B",
+          50: "#3A3120",
+          100: "#4A3D26",
+          300: "#D9BA72",
+          500: "#C9A24B",
+          600: "#B8912F",
+          700: "#93741F",
         },
         forest: {
-          DEFAULT: "#2E5D45", // verde bosque de Chiloé
-          50: "#EAF1EC",
-          100: "#CBDED2",
-          400: "#4A7D5E",
-          600: "#2E5D45",
-          800: "#1D3C2C",
+          DEFAULT: "#1F4D38",
+          50: "#12291D",
+          100: "#173521",
+          400: "#2C6A48",
+          600: "#1F4D38",
+          800: "#0B1D14",
         },
         sand: {
-          DEFAULT: "#EDE3CE", // arena / madera clara
-          50: "#FAF7F0",
-          100: "#F3ECDB",
-          300: "#E3D5B0",
+          // repurposed como superficies oscuras (antes era el fondo claro)
+          DEFAULT: "#141416",
+          50: "#0B0B0D",
+          100: "#151517",
+          300: "#28282C",
         },
         stone: {
-          DEFAULT: "#6B7280",
+          DEFAULT: "#9A9488",
         },
       },
       fontFamily: {
-        display: ["Fraunces", "ui-serif", "Georgia", "serif"],
+        display: ["Playfair Display", "Fraunces", "ui-serif", "Georgia", "serif"],
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 10px 30px -12px rgba(14,58,76,0.25)",
+        soft: "0 10px 30px -12px rgba(0,0,0,0.55)",
       },
       borderRadius: {
         xl2: "1.25rem",
