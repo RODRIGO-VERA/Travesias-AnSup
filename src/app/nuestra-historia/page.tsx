@@ -5,8 +5,8 @@ export const metadata = { title: "Nuestra historia — Travesías AnSup" };
 export default function NuestraHistoriaPage() {
   return (
     <div>
-      <div className="relative h-72 w-full">
-        <Image src="/images/grupo-tablas-cabana.jpg" alt="Equipo Travesías AnSup" fill className="object-cover" />
+      <div className="relative aspect-[16/9] max-h-[380px] w-full bg-[#0B0B0D]">
+        <Image src="/images/grupo-tablas-cabana.jpg" alt="Equipo Travesías AnSup" fill className="object-contain" />
         <div className="absolute inset-0 bg-deep-900/50" />
         <div className="absolute inset-0 flex items-center">
           <h1 className="section text-3xl sm:text-4xl font-display font-semibold text-white">Nuestra historia</h1>
@@ -33,10 +33,10 @@ export default function NuestraHistoriaPage() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <div className="relative h-48 rounded-xl overflow-hidden"><Image src="/images/grupo-celebrando-manos.jpg" alt="" fill className="object-cover" /></div>
-          <div className="relative h-48 rounded-xl overflow-hidden mt-6"><Image src="/images/inspirador-remo-arriba.jpg" alt="" fill className="object-cover" /></div>
-          <div className="relative h-48 rounded-xl overflow-hidden"><Image src="/images/grupo-selfie-sol.jpg" alt="" fill className="object-cover" /></div>
-          <div className="relative h-48 rounded-xl overflow-hidden mt-6"><Image src="/images/accion-remando-lago.jpg" alt="" fill className="object-cover" /></div>
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#141416]"><Image src="/images/grupo-celebrando-manos.jpg" alt="" fill className="object-contain" /></div>
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden mt-6 bg-[#141416]"><Image src="/images/inspirador-remo-arriba.jpg" alt="" fill className="object-contain" /></div>
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-[#141416]"><Image src="/images/grupo-selfie-sol.jpg" alt="" fill className="object-contain" /></div>
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden mt-6 bg-[#141416]"><Image src="/images/accion-remando-lago.jpg" alt="" fill className="object-contain" /></div>
         </div>
       </div>
     </div>

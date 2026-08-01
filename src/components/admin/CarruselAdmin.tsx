@@ -36,6 +36,39 @@ export default function CarruselAdmin({ panoramasIniciales }: { panoramasInicial
     );
   }
 
+  async function eliminarFoto(panoramaId: string, imageId: string, eraPrincipal: boolean) {
+    if (!confirm("¿Eliminar esta foto? Esta acción no se puede deshacer.")) return;
+    await fetch("/api/panoramas/images", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: imageId }),
+    });
+
+    setPanoramas((prev) =>
+      prev.map((p) => {
+        if (p.id !== panoramaId) return p;
+        const restantes = p.images.filter((i) => i.id !== imageId);
+        // Si la que se borró era la principal, promovemos la primera que quede.
+        if (eraPrincipal && restantes.length > 0 && !restantes.some((i) => i.imagen_principal)) {
+          restantes[0] = { ...restantes[0], imagen_principal: true };
+        }
+        return { ...p, images: restantes };
+      })
+    );
+
+    if (eraPrincipal) {
+      const p = panoramas.find((x) => x.id === panoramaId);
+      const restante = p?.images.find((i) => i.id !== imageId);
+      if (restante) {
+        fetch("/api/panoramas/images", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accion: "principal", panorama_id: panoramaId, id: restante.id }),
+        }).catch(() => {});
+      }
+    }
+  }
+
   return (
     <div className="grid sm:grid-cols-2 gap-6">
       {panoramas.map((p) => {
@@ -45,12 +78,19 @@ export default function CarruselAdmin({ panoramasIniciales }: { panoramasInicial
             <h2 className="font-semibold text-deep-800">{p.nombre}</h2>
 
             {principal ? (
-              <div className="relative h-44 rounded-xl overflow-hidden">
-                <Image src={principal.url} alt={p.nombre} fill className="object-cover" />
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden group bg-[#0B0B0D]">
+                <Image src={principal.url} alt={p.nombre} fill className="object-contain" />
                 <span className="absolute top-2 left-2 badge bg-deep-900/80 text-white text-[10px]">Foto actual del carrusel</span>
+                <button
+                  onClick={() => eliminarFoto(p.id, principal.id, true)}
+                  className="absolute top-2 right-2 h-7 w-7 grid place-items-center rounded-full bg-deep-900/80 text-white text-xs opacity-0 group-hover:opacity-100 transition"
+                  title="Eliminar esta foto"
+                >
+                  ✕
+                </button>
               </div>
             ) : (
-              <div className="h-44 rounded-xl bg-sand-100 grid place-items-center text-sm text-stone">Sin fotos aún</div>
+              <div className="aspect-[4/3] rounded-xl bg-sand-100 grid place-items-center text-sm text-stone">Sin fotos aún</div>
             )}
 
             {p.images.length > 1 && (
@@ -60,9 +100,18 @@ export default function CarruselAdmin({ panoramasIniciales }: { panoramasInicial
                   {p.images
                     .filter((i) => !i.imagen_principal)
                     .map((img) => (
-                      <button key={img.id} onClick={() => elegirComoPrincipal(p.id, img.id)} className="relative h-14 w-14 rounded-lg overflow-hidden ring-1 ring-sand-300">
-                        <Image src={img.url} alt="" fill className="object-cover" />
-                      </button>
+                      <div key={img.id} className="relative h-14 w-14 rounded-lg overflow-hidden ring-1 ring-sand-300 group">
+                        <button onClick={() => elegirComoPrincipal(p.id, img.id)} className="absolute inset-0">
+                          <Image src={img.url} alt="" fill className="object-cover" />
+                        </button>
+                        <button
+                          onClick={() => eliminarFoto(p.id, img.id, false)}
+                          className="absolute inset-0 bg-deep-900/70 text-white text-[10px] opacity-0 group-hover:opacity-100 transition"
+                          title="Eliminar esta foto"
+                        >
+                          ✕
+                        </button>
+                      </div>
                     ))}
                 </div>
               </div>
