@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const LINKS = [
@@ -19,15 +20,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-sand-300 bg-sand-50/95 backdrop-blur">
       <div className="section flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Travesías AnSup — Inicio">
-          <div className="grid h-9 w-9 place-items-center rounded-full bg-deep-600 text-sand-50">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M2 18c2 1.2 4 1.2 6 0s4-1.2 6 0 4 1.2 6 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M12 3v11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M8 6l4-3 4 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+        <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Travesías AnSup — Inicio">
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10">
+            <Image src="/images/logo-tabla.jpg" alt="Travesías AnSup" fill className="object-cover" />
           </div>
-          <span className="font-display text-lg font-semibold leading-none text-deep-800">
+          <span
+            className="font-display text-lg font-semibold leading-none text-deep-800 whitespace-nowrap"
+            style={{ letterSpacing: "0.04em" }}
+          >
             Travesías AnSup
           </span>
         </Link>
