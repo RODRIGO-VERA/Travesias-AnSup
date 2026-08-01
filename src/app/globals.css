@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-sand-50 text-deep-800 antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display uppercase;
+    letter-spacing: 0.015em;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium shadow-soft transition active:scale-[0.98];
+    background-color: #C9A24B;
+    color: #0B0B0D;
+  }
+  .btn-primary:hover {
+    background-color: #E0BE6E;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition active:scale-[0.98];
+    border: 1.5px solid #C9A24B;
+    color: #D9BA72;
+  }
+  .btn-secondary:hover {
+    background-color: rgba(201, 162, 75, 0.1);
+  }
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest-600 px-6 py-3 text-white font-medium shadow-soft transition hover:bg-forest-400 active:scale-[0.98];
+  }
+  .card {
+    @apply rounded-xl2 shadow-soft overflow-hidden;
+    background-color: #141416;
+    border: 1px solid #232326;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold;
+  }
+  .section {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* =========================================================
+   Legibilidad sobre fondo negro.
+   `deep` se mantiene con sus valores originales (navy) porque
+   también se usa como fondo de botones/footer/overlays — así que
+   forzamos aquí, fuera de @layer (máxima prioridad en cascada),
+   el COLOR DE TEXTO de esas clases a tonos claros, sin tocar los
+   usos como fondo (bg-deep-*), que siguen intactos.
+   ========================================================= */
+.text-deep-800 { color: #F5F1E8 !important; }
+.text-deep-700 { color: #D9D3C5 !important; }
+.text-deep-600 { color: #B8B3A5 !important; }
+
+.bg-white { background-color: #141416 !important; }
+
+.border-sand-100, .border-sand-200, .border-sand-300 {
+  border-color: #232326 !important;
+}
+
+.uppercase {
+  letter-spacing: 0.08em;
+}
+
+/* Campos de formulario (inputs, textareas, selects) — sin esto quedan con
+   fondo blanco del navegador por defecto y texto claro encima, invisible. */
+input, textarea, select {
+  background-color: #1B1B1E !important;
+  color: #F5F1E8 !important;
+  border-color: #2E2E33 !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #7A7568 !important;
+}
+input[type="checkbox"], input[type="radio"] {
+  background-color: transparent !important;
+  accent-color: #C9A24B;
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cod_grupo2026",
+    "codigo": "ANSUP-GRUPO-2026",
+    "estado": "Disponible",
+    "booking_id": null,
+    "panorama_id": null,
+    "descripcion_interna": "Código reservado para grupos y empresas",
+    "fecha_creacion": "2026-07-01T00:00:00.000Z",
+    "fecha_vencimiento": "2026-12-31",
+    "fecha_utilizacion": null,
+    "creado_por": "Superadministrador",
+    "anulado_por": null,
+    "motivo_anulacion": null
+  }
+]
