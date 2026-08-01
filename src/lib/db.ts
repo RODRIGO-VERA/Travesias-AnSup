@@ -624,3 +624,48 @@ export async function updateSiteSetting(key: keyof SiteSettings, value: string):
     .upsert({ key, value, fecha_actualizacion: new Date().toISOString() }, { onConflict: "key" });
   if (error) throw new Error(error.message);
 }
+
+// ---------- Galería independiente ----------
+export interface GalleryImage {
+  id: string;
+  url: string;
+  titulo?: string;
+  descripcion?: string;
+  orden: number;
+  fecha_creacion: string;
+}
+
+export async function getGalleryImages(): Promise<GalleryImage[]> {
+  const { data, error } = await db.from("gallery_images").select("*").order("orden");
+  return must(data, error, "No se pudieron obtener las fotos de la galería") as GalleryImage[];
+}
+
+export async function addGalleryImage(input: { url: string; titulo?: string; descripcion?: string }): Promise<GalleryImage> {
+  const { data: last } = await db.from("gallery_images").select("orden").order("orden", { ascending: false }).limit(1);
+  const nextOrden = last && last[0] ? last[0].orden + 1 : 1;
+  const { data, error } = await db.from("gallery_images").insert({ ...input, orden: nextOrden }).select().single();
+  return must(data, error, "No se pudo agregar la foto a la galería") as GalleryImage;
+}
+
+export async function deleteGalleryImage(id: string): Promise<void> {
+  const { data } = await db.from("gallery_images").select("url").eq("id", id).maybeSingle();
+  const { error } = await db.from("gallery_images").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  if (data?.url) deleteStorageFileIfApplicable(data.url).catch(() => {});
+}
+
+// ---------- Eliminar fotos (también del almacenamiento si corresponde) ----------
+async function deleteStorageFileIfApplicable(url: string): Promise<void> {
+  const marker = "/storage/v1/object/public/site-images/";
+  const idx = url.indexOf(marker);
+  if (idx === -1) return; // no es un archivo subido a Storage (ej. una foto original /images/*.jpg)
+  const path = url.slice(idx + marker.length);
+  await db.storage.from("site-images").remove([path]);
+}
+
+export async function deletePanoramaImage(id: string): Promise<void> {
+  const { data } = await db.from("panorama_images").select("url").eq("id", id).maybeSingle();
+  const { error } = await db.from("panorama_images").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  if (data?.url) deleteStorageFileIfApplicable(data.url).catch(() => {});
+}

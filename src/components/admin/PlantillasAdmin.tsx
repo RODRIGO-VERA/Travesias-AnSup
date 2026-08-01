@@ -2,6 +2,7 @@
 import { useState } from "react";
 import type { ApprovalTemplate } from "@/types";
 import ApprovalPreview from "@/components/admin/ApprovalPreview";
+import ImageUploader from "./ImageUploader";
 import type { Booking, Panorama, Schedule } from "@/types";
 
 const EJEMPLO_BOOKING: Booking = {
@@ -106,7 +107,17 @@ export default function PlantillasAdmin({ plantillasIniciales }: { plantillasIni
           <span className="text-sm text-deep-700">Mostrar imagen</span>
         </label>
         {form.mostrar_imagen && (
-          <input placeholder="/images/martin-pescador.jpg" value={form.imagen_url} onChange={(e) => setForm({ ...form, imagen_url: e.target.value })} className="w-full rounded-lg border border-sand-300 px-3 py-2.5 text-sm" />
+          <div className="space-y-2">
+            <input placeholder="/images/martin-pescador.jpg" value={form.imagen_url} onChange={(e) => setForm({ ...form, imagen_url: e.target.value })} className="w-full rounded-lg border border-sand-300 px-3 py-2.5 text-sm" />
+            <div className="flex items-center gap-3">
+              <ImageUploader label="Subir foto para esta plantilla" onUploaded={(url) => setForm((prev) => ({ ...prev, imagen_url: url }))} />
+              {form.imagen_url && (
+                <button type="button" onClick={() => setForm((prev) => ({ ...prev, imagen_url: "" }))} className="text-xs font-medium text-red-500">
+                  Quitar foto
+                </button>
+              )}
+            </div>
+          </div>
         )}
         <label className="flex items-center gap-2">
           <input type="checkbox" checked={form.predeterminada} onChange={(e) => setForm({ ...form, predeterminada: e.target.checked })} />

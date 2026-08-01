@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { Panorama, EstadoPanorama, NivelDificultad } from "@/types";
 import { formatCLP } from "@/lib/utils";
 import Image from "next/image";
+import ImageUploader from "./ImageUploader";
 
 const ESTADOS: EstadoPanorama[] = ["Disponible", "Próximamente", "Cupos limitados", "Completo", "Suspendido", "No disponible", "Actividad privada"];
 const NIVELES: NivelDificultad[] = ["Principiante", "Familiar", "Intermedio", "Avanzado"];
@@ -114,23 +115,67 @@ export default function PanoramasAdmin({ panoramasIniciales }: { panoramasInicia
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold text-deep-800 mb-2">Fotografías</h3>
-          <div className="flex gap-2 mb-3">
-            <input placeholder="/images/nombre-de-archivo.jpg" value={nuevaImagenUrl} onChange={(e) => setNuevaImagenUrl(e.target.value)} className="flex-1 rounded-lg border border-sand-300 px-3 py-2.5 text-sm" />
-            <button type="button" onClick={agregarImagen} className="btn-secondary">Agregar</button>
+          <h3 className="text-sm font-semibold text-deep-800 mb-1">Fotografías</h3>
+          <p className="text-xs text-stone mb-3">
+            La foto marcada con ⭐ es la que se usa en el carrusel de inicio, la tarjeta del panorama y la
+            foto grande de la ficha. Pasa el mouse sobre una foto para elegirla como principal o quitarla.
+          </p>
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <input placeholder="/images/nombre-de-archivo.jpg" value={nuevaImagenUrl} onChange={(e) => setNuevaImagenUrl(e.target.value)} className="flex-1 min-w-[180px] rounded-lg border border-sand-300 px-3 py-2.5 text-sm" />
+            <button type="button" onClick={agregarImagen} className="btn-secondary">Agregar por URL</button>
+            <ImageUploader
+              onUploaded={(url) =>
+                setForm((prev) => ({
+                  ...prev,
+                  images: [...prev.images, { id: `img_${Date.now()}`, url, imagen_principal: prev.images.length === 0, orden: prev.images.length + 1 }],
+                }))
+              }
+            />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3">
             {form.images.map((img) => (
-              <div key={img.id} className="relative h-16 w-16 rounded-lg overflow-hidden group">
+              <div key={img.id} className={`relative h-24 w-24 rounded-lg overflow-hidden group border-2 ${img.imagen_principal ? "border-teal-400" : "border-transparent"}`}>
                 <Image src={img.url} alt="" fill className="object-cover" />
-                <button
-                  onClick={() => setForm({ ...form, images: form.images.filter((i) => i.id !== img.id) })}
-                  className="absolute inset-0 bg-deep-900/60 text-white text-xs opacity-0 group-hover:opacity-100 transition"
-                >
-                  Quitar
-                </button>
+                {img.imagen_principal && (
+                  <span className="absolute top-1 left-1 text-base drop-shadow" title="Foto principal">⭐</span>
+                )}
+                <div className="absolute inset-0 bg-deep-900/70 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center gap-1">
+                  {!img.imagen_principal && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setForm({
+                          ...form,
+                          images: form.images.map((i) => ({ ...i, imagen_principal: i.id === img.id })),
+                        })
+                      }
+                      className="text-white text-xs font-semibold underline"
+                    >
+                      Usar como principal
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      if (!confirm("¿Eliminar esta foto? Esta acción no se puede deshacer.")) return;
+                      if (!img.id.startsWith("img_")) {
+                        // Ya existe guardada en la base de datos: eliminar de inmediato.
+                        await fetch("/api/panoramas/images", {
+                          method: "DELETE",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ id: img.id }),
+                        });
+                      }
+                      setForm({ ...form, images: form.images.filter((i) => i.id !== img.id) });
+                    }}
+                    className="text-white text-xs"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </div>
             ))}
+            {form.images.length === 0 && <p className="text-sm text-stone">Aún no hay fotos agregadas a este panorama.</p>}
           </div>
         </div>
 

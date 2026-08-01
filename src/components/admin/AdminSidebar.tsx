@@ -6,6 +6,7 @@ const LINKS = [
   { href: "/admin", label: "Panel general", icon: "📊" },
   { href: "/admin/reservas", label: "Reservas", icon: "🗓️" },
   { href: "/admin/panoramas", label: "Panoramas", icon: "🏞️" },
+  { href: "/admin/galeria", label: "Galería", icon: "🖼️" },
   { href: "/admin/codigos", label: "Códigos de reserva", icon: "🔑" },
   { href: "/admin/equipamiento", label: "Equipamiento", icon: "🧰" },
   { href: "/admin/plantillas", label: "Plantillas de aprobación", icon: "✉️" },
