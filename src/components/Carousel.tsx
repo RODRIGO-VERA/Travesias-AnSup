@@ -34,7 +34,7 @@ export default function Carousel({ slides, intervalMs = 5000 }: { slides: Carous
 
   return (
     <div
-      className="relative w-full h-[65vh] min-h-[420px] overflow-hidden rounded-b-xl2 sm:rounded-xl2"
+      className="relative w-full aspect-[16/10] max-h-[520px] overflow-hidden rounded-b-xl2 sm:rounded-xl2"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
@@ -47,10 +47,10 @@ export default function Carousel({ slides, intervalMs = 5000 }: { slides: Carous
         </div>
       ))}
 
-      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10 text-sand-50">
+      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10" style={{ color: "#F5F1E8" }}>
         <p className="text-xs font-semibold uppercase tracking-wide text-teal-300 mb-1">Panorama</p>
         <h2 className="text-2xl sm:text-3xl font-display font-semibold mb-2">{slide.titulo}</h2>
-        <p className="text-sm sm:text-base text-sand-100/90 max-w-xl mb-4">{slide.descripcion}</p>
+        <p className="text-sm sm:text-base max-w-xl mb-4" style={{ color: "#E4DFD3" }}>{slide.descripcion}</p>
         <Link href={slide.href} className="btn-primary">
           Ver panorama
         </Link>
