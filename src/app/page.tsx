@@ -46,7 +46,7 @@ export default async function HomePage() {
           </div>
           <div className="absolute inset-0 flex flex-col items-start justify-center gap-4 p-8 sm:p-14 text-white max-w-2xl">
             <h1 className="font-display text-3xl sm:text-4xl font-semibold">Vive Chiloé desde el agua</h1>
-            <p className="text-sand-100/90">
+            <p style={{ color: "#E4DFD3" }}>
               Descubre ríos, esteros y paisajes únicos de Ancud mientras navegas sobre una tabla SUP.
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
