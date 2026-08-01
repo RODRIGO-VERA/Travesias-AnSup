@@ -71,3 +71,18 @@
 .uppercase {
   letter-spacing: 0.08em;
 }
+
+/* Campos de formulario (inputs, textareas, selects) — sin esto quedan con
+   fondo blanco del navegador por defecto y texto claro encima, invisible. */
+input, textarea, select {
+  background-color: #1B1B1E !important;
+  color: #F5F1E8 !important;
+  border-color: #2E2E33 !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #7A7568 !important;
+}
+input[type="checkbox"], input[type="radio"] {
+  background-color: transparent !important;
+  accent-color: #C9A24B;
+}
