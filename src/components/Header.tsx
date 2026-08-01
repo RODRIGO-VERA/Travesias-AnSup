@@ -18,48 +18,52 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-300 bg-sand-50/95 backdrop-blur">
-      <div className="section flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50/95 backdrop-blur">
+      <div className="section flex h-16 items-center justify-between gap-6">
         <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Travesías AnSup — Inicio">
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10">
+          <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10">
             <Image src="/images/logo-tabla.jpg" alt="Travesías AnSup" fill className="object-cover" />
           </div>
           <span
-            className="font-display text-lg font-semibold leading-none text-deep-800 whitespace-nowrap"
+            className="font-display text-base font-semibold leading-none text-deep-800 whitespace-nowrap hidden sm:inline"
             style={{ letterSpacing: "0.04em" }}
           >
             Travesías AnSup
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-5 flex-1 justify-center min-w-0">
           {LINKS.map((l) => (
-            <Link key={l.label} href={l.href} className="text-sm font-medium text-deep-600 hover:text-teal-600 transition">
+            <Link
+              key={l.label}
+              href={l.href}
+              className="text-sm font-medium text-deep-600 hover:text-teal-600 transition whitespace-nowrap"
+            >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 shrink-0">
           <InstallMenuButton />
-          <Link href="/admin/login" className="text-xs text-stone/70 hover:text-stone underline underline-offset-2">
+          <Link href="/admin/login" className="text-xs text-stone/70 hover:text-stone underline underline-offset-2 whitespace-nowrap">
             Administrador
           </Link>
         </div>
 
         <button
-          className="lg:hidden grid h-10 w-10 place-items-center rounded-full border border-sand-300"
+          className="lg:hidden grid h-10 w-10 shrink-0 place-items-center rounded-full border border-sand-300"
           onClick={() => setOpen((v) => !v)}
           aria-label="Abrir menú"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="#0E3A4C" strokeWidth="2" strokeLinecap="round" />
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="#D9D3C5" strokeWidth="2" strokeLinecap="round" />
           </svg>
         </button>
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-sand-300 bg-sand-50">
+        <div className="lg:hidden border-t border-sand-200 bg-sand-50">
           <nav className="section flex flex-col py-3">
             {LINKS.map((l) => (
               <Link
@@ -88,10 +92,14 @@ function InstallMenuButton() {
   return (
     <button
       id="ansup-install-trigger"
-      className="text-xs font-semibold text-teal-700 border border-teal-500 rounded-full px-3 py-1.5 hover:bg-teal-50"
+      title="Instalar aplicación"
+      className="grid h-8 w-8 place-items-center rounded-full border border-teal-500 text-teal-500 hover:bg-teal-50/10 transition shrink-0"
       data-ansup-install
     >
-      Instalar aplicación
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <path d="M12 3v12M8 11l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M5 19h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
     </button>
   );
 }
