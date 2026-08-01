@@ -1,6 +1,8 @@
 import { getPanoramas, getSchedules } from "@/lib/db";
 import DisponibilidadAdmin from "@/components/admin/DisponibilidadAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDisponibilidadPage() {
   const [panoramas, schedules] = await Promise.all([getPanoramas(), getSchedules()]);
   return (

@@ -1,6 +1,8 @@
 import { getPanoramas } from "@/lib/db";
 import CarruselAdmin from "@/components/admin/CarruselAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminInicioPage() {
   const panoramas = await getPanoramas();
   return (

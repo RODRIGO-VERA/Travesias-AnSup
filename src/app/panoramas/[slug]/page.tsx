@@ -16,7 +16,7 @@ export default async function PanoramaDetailPage({ params }: { params: { slug: s
   return (
     <div>
       <div className="relative aspect-[16/9] max-h-[420px] w-full">
-        {principal && <Image src={principal.url} alt={panorama.nombre} fill priority className="object-cover object-top" />}
+        {principal && <Image src={principal.url} alt={panorama.nombre} fill priority className="object-cover object-[center_25%]" />}
         <div className="absolute inset-0 bg-gradient-to-t from-deep-900/70 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 section pb-6 text-white">
           <span className="badge bg-teal-500 text-white mb-2">{panorama.dificultad}</span>
@@ -38,7 +38,7 @@ export default async function PanoramaDetailPage({ params }: { params: { slug: s
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {resto.map((img) => (
                   <div key={img.id} className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                    <Image src={img.url} alt={img.titulo || panorama.nombre} fill className="object-cover object-top" />
+                    <Image src={img.url} alt={img.titulo || panorama.nombre} fill className="object-cover object-[center_25%]" />
                   </div>
                 ))}
               </div>

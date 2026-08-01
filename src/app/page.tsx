@@ -41,7 +41,7 @@ export default async function HomePage() {
       <section className="section mt-14">
         <div className="relative overflow-hidden rounded-xl2 shadow-soft">
           <div className="relative aspect-[16/9] max-h-[420px] w-full">
-            <Image src="/images/accion-remando-lago.jpg" alt="Vive Chiloé desde el agua" fill className="object-cover object-top" />
+            <Image src="/images/accion-remando-lago.jpg" alt="Vive Chiloé desde el agua" fill className="object-cover object-[center_25%]" />
             <div className="absolute inset-0 bg-deep-900/50" />
           </div>
           <div className="absolute inset-0 flex flex-col items-start justify-center gap-4 p-8 sm:p-14 text-white max-w-2xl">
@@ -99,7 +99,7 @@ export default async function HomePage() {
             { src: "/images/flamencos.jpg", alt: "Flamencos" },
           ].map((f) => (
             <div key={f.src} className="relative aspect-[4/3] rounded-xl2 overflow-hidden shadow-soft">
-              <Image src={f.src} alt={f.alt} fill className="object-cover object-top" />
+              <Image src={f.src} alt={f.alt} fill className="object-cover object-[center_25%]" />
             </div>
           ))}
         </div>

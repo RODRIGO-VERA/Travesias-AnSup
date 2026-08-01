@@ -1,6 +1,8 @@
 import { getSiteSettings } from "@/lib/db";
 import ConfiguracionAdmin from "@/components/admin/ConfiguracionAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminConfiguracionPage() {
   const settings = await getSiteSettings();
 

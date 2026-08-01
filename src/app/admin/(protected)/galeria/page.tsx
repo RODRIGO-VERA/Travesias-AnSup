@@ -1,6 +1,8 @@
 import { getTodasLasFotos } from "@/lib/db";
 import GaleriaAdmin from "@/components/admin/GaleriaAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminGaleriaPage() {
   const todas = await getTodasLasFotos();
   return (

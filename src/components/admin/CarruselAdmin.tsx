@@ -79,7 +79,7 @@ export default function CarruselAdmin({ panoramasIniciales }: { panoramasInicial
 
             {principal ? (
               <div className="relative aspect-[4/3] rounded-xl overflow-hidden group">
-                <Image src={principal.url} alt={p.nombre} fill className="object-cover object-top" />
+                <Image src={principal.url} alt={p.nombre} fill className="object-cover object-[center_25%]" />
                 <span className="absolute top-2 left-2 badge bg-deep-900/80 text-white text-[10px]">Foto actual del carrusel</span>
                 <button
                   onClick={() => eliminarFoto(p.id, principal.id, true)}

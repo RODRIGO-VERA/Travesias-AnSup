@@ -2,6 +2,8 @@ import { getSessionFromCookies } from "@/lib/auth";
 import { getAdmins } from "@/lib/db";
 import AdministradoresAdmin from "@/components/admin/AdministradoresAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminAdministradoresPage() {
   const session = getSessionFromCookies();
   const esSuperadmin = session?.rol === "Superadministrador";

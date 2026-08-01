@@ -24,4 +24,11 @@ if (!url || !serviceKey) {
 
 export const supabaseAdmin = createClient(url || "", serviceKey || "", {
   auth: { persistSession: false },
+  global: {
+    // Evita que Next.js (o Netlify) guarde en caché las consultas a la base
+    // de datos. Sin esto, cambios hechos desde el panel admin (por ejemplo
+    // la foto principal de un panorama) podían tardar en reflejarse para
+    // los visitantes del sitio.
+    fetch: (input: RequestInfo | URL, init?: RequestInit) => fetch(input, { ...init, cache: "no-store" }),
+  },
 });

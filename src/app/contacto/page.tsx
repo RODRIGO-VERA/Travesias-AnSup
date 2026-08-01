@@ -1,6 +1,7 @@
 import { whatsappLink } from "@/lib/utils";
 import { getSiteSettings } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Contacto — Travesías AnSup" };
 
 export default async function ContactoPage() {

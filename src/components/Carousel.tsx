@@ -42,7 +42,7 @@ export default function Carousel({ slides, intervalMs = 5000 }: { slides: Carous
     >
       {slides.map((s, i) => (
         <div key={s.url} className={`absolute inset-0 transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}>
-          <Image src={s.url} alt={s.titulo} fill priority={i === 0} className="object-cover object-top" sizes="100vw" />
+          <Image src={s.url} alt={s.titulo} fill priority={i === 0} className="object-cover object-[center_25%]" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-deep-900/80 via-deep-900/10 to-transparent" />
         </div>
       ))}

@@ -13,7 +13,7 @@ export default function PanoramaCard({ panorama }: { panorama: Panorama }) {
             src={principal.url}
             alt={panorama.nombre}
             fill
-            className="object-cover object-top transition duration-500 group-hover:scale-105"
+            className="object-cover object-[center_25%] transition duration-500 group-hover:scale-105"
             sizes="(min-width: 1024px) 33vw, 100vw"
           />
         )}

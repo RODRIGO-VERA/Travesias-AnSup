@@ -2,6 +2,8 @@ import { getSessionFromCookies } from "@/lib/auth";
 import { getAdminById } from "@/lib/db";
 import CuentaAdmin from "@/components/admin/CuentaAdmin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminCuentaPage() {
   const session = getSessionFromCookies();
   const admin = session ? await getAdminById(session.id) : null;
