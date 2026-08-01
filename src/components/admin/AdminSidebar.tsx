@@ -4,8 +4,10 @@ import { usePathname, useRouter } from "next/navigation";
 
 const LINKS = [
   { href: "/admin", label: "Panel general", icon: "📊" },
+  { href: "/admin/inicio", label: "Fotos de inicio (carrusel)", icon: "🎠" },
   { href: "/admin/reservas", label: "Reservas", icon: "🗓️" },
   { href: "/admin/panoramas", label: "Panoramas", icon: "🏞️" },
+  { href: "/admin/disponibilidad", label: "Fechas y horarios", icon: "🗓️" },
   { href: "/admin/galeria", label: "Galería", icon: "🖼️" },
   { href: "/admin/codigos", label: "Códigos de reserva", icon: "🔑" },
   { href: "/admin/equipamiento", label: "Equipamiento", icon: "🧰" },

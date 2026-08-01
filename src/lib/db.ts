@@ -669,3 +669,77 @@ export async function deletePanoramaImage(id: string): Promise<void> {
   if (error) throw new Error(error.message);
   if (data?.url) deleteStorageFileIfApplicable(data.url).catch(() => {});
 }
+
+// ---------- Edición de título de fotos ----------
+export async function updateGalleryImageTitulo(id: string, titulo: string): Promise<void> {
+  const { error } = await db.from("gallery_images").update({ titulo }).eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+export async function updatePanoramaImageTitulo(id: string, titulo: string): Promise<void> {
+  const { error } = await db.from("panorama_images").update({ titulo }).eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// Todas las fotos del sitio en un solo listado (para el panel admin de Galería):
+// las de cada panorama + las independientes.
+export interface FotoUnificada {
+  id: string;
+  url: string;
+  titulo: string;
+  origen: "panorama" | "independiente";
+  panorama_id?: string;
+  panorama_nombre?: string;
+}
+
+export async function getTodasLasFotos(): Promise<FotoUnificada[]> {
+  const [panoramas, independientes] = await Promise.all([getPanoramas(), getGalleryImages()]);
+  const dePanoramas: FotoUnificada[] = panoramas.flatMap((p) =>
+    p.images.map((img) => ({
+      id: img.id,
+      url: img.url,
+      titulo: img.titulo || "",
+      origen: "panorama" as const,
+      panorama_id: p.id,
+      panorama_nombre: p.nombre,
+    }))
+  );
+  const sueltas: FotoUnificada[] = independientes.map((img) => ({
+    id: img.id,
+    url: img.url,
+    titulo: img.titulo || "",
+    origen: "independiente" as const,
+  }));
+  return [...dePanoramas, ...sueltas];
+}
+
+// ---------- Foto principal / agregar foto directa (usado por el carrusel de inicio) ----------
+export async function setImagenPrincipal(panoramaId: string, imageId: string): Promise<void> {
+  await db.from("panorama_images").update({ imagen_principal: false }).eq("panorama_id", panoramaId);
+  const { error } = await db.from("panorama_images").update({ imagen_principal: true }).eq("id", imageId);
+  if (error) throw new Error(error.message);
+}
+
+export async function addPanoramaImage(input: {
+  panorama_id: string;
+  url: string;
+  titulo?: string;
+  imagen_principal?: boolean;
+}): Promise<PanoramaImage> {
+  if (input.imagen_principal) {
+    await db.from("panorama_images").update({ imagen_principal: false }).eq("panorama_id", input.panorama_id);
+  }
+  const { data: last } = await db
+    .from("panorama_images")
+    .select("orden")
+    .eq("panorama_id", input.panorama_id)
+    .order("orden", { ascending: false })
+    .limit(1);
+  const nextOrden = last && last[0] ? last[0].orden + 1 : 1;
+  const { data, error } = await db
+    .from("panorama_images")
+    .insert({ ...input, orden: nextOrden })
+    .select()
+    .single();
+  return must(data, error, "No se pudo agregar la foto") as PanoramaImage;
+}
