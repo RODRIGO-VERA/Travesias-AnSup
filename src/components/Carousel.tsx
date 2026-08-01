@@ -34,7 +34,7 @@ export default function Carousel({ slides, intervalMs = 5000 }: { slides: Carous
 
   return (
     <div
-      className="relative w-full aspect-[16/10] max-h-[520px] overflow-hidden rounded-b-xl2 sm:rounded-xl2"
+      className="relative w-full aspect-[3/2] max-h-[480px] overflow-hidden rounded-b-xl2 sm:rounded-xl2"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
