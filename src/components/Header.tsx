@@ -21,7 +21,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-sand-200 bg-sand-50/95 backdrop-blur">
       <div className="section flex h-16 items-center justify-between gap-6">
         <Link href="/" className="flex items-center shrink-0" aria-label="Travesías AnSup — Inicio">
-          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-2xl ring-1 ring-teal-500/40">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 ring-teal-500/40">
             <Image src="/images/logo-oficial-icono.png" alt="Travesías AnSup" fill className="object-cover" />
           </div>
         </Link>
