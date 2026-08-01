@@ -1,0 +1,14 @@
+# Travesías AnSup — Configuración de despliegue en Netlify
+# Netlify detecta Next.js automáticamente gracias al plugin oficial,
+# que traduce las rutas API, middleware y páginas dinámicas de App Router
+# a Netlify Functions sin configuración adicional.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# El middleware (protección de /admin) y las rutas /api/* corren como
+# Netlify Functions gracias al plugin; no requieren configuración extra aquí.
