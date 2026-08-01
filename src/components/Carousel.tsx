@@ -41,8 +41,8 @@ export default function Carousel({ slides, intervalMs = 5000 }: { slides: Carous
       onTouchEnd={onTouchEnd}
     >
       {slides.map((s, i) => (
-        <div key={s.url} className={`absolute inset-0 bg-[#0B0B0D] transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}>
-          <Image src={s.url} alt={s.titulo} fill priority={i === 0} className="object-contain" sizes="100vw" />
+        <div key={s.url} className={`absolute inset-0 transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}>
+          <Image src={s.url} alt={s.titulo} fill priority={i === 0} className="object-cover object-top" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-t from-deep-900/80 via-deep-900/10 to-transparent" />
         </div>
       ))}

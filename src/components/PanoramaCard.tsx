@@ -7,13 +7,13 @@ export default function PanoramaCard({ panorama }: { panorama: Panorama }) {
   const principal = panorama.images.find((i) => i.imagen_principal) || panorama.images[0];
   return (
     <Link href={`/panoramas/${panorama.slug}`} className="card group block">
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#141416]">
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         {principal && (
           <Image
             src={principal.url}
             alt={panorama.nombre}
             fill
-            className="object-contain transition duration-500 group-hover:scale-105"
+            className="object-cover object-top transition duration-500 group-hover:scale-105"
             sizes="(min-width: 1024px) 33vw, 100vw"
           />
         )}
