@@ -15,13 +15,13 @@ export default async function PanoramaDetailPage({ params }: { params: { slug: s
 
   return (
     <div>
-      <div className="relative h-[46vh] min-h-[320px] w-full">
+      <div className="relative aspect-[16/9] max-h-[420px] w-full">
         {principal && <Image src={principal.url} alt={panorama.nombre} fill priority className="object-cover" />}
         <div className="absolute inset-0 bg-gradient-to-t from-deep-900/70 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 section pb-6 text-white">
           <span className="badge bg-teal-500 text-white mb-2">{panorama.dificultad}</span>
           <h1 className="text-3xl sm:text-4xl font-display font-semibold">{panorama.nombre}</h1>
-          <p className="text-sand-100/90">{panorama.ubicacion}</p>
+          <p style={{ color: "#E4DFD3" }}>{panorama.ubicacion}</p>
         </div>
       </div>
 
