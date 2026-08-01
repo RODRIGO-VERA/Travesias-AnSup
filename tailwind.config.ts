@@ -49,7 +49,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["Playfair Display", "Fraunces", "ui-serif", "Georgia", "serif"],
+        display: ["Oswald", "Bebas Neue", "ui-sans-serif", "sans-serif"],
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
