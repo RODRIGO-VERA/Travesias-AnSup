@@ -15,7 +15,11 @@ function isStandalone() {
 
 function isIOS() {
   if (typeof navigator === "undefined") return false;
-  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !("MSStream" in window);
+  const ua = /iphone|ipad|ipod/i.test(navigator.userAgent) && !("MSStream" in window);
+  // iPadOS 13+ en modo "Solicitar sitio de escritorio" se identifica como
+  // Mac normal, pero sigue siendo táctil — lo detectamos igual.
+  const iPadEscritorio = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+  return ua || iPadEscritorio;
 }
 
 const DISMISS_KEY = "ansup_install_dismissed_at";
@@ -24,6 +28,7 @@ export default function InstallPrompt() {
   const [deferred, setDeferred] = useState<BIPEvent | null>(null);
   const [show, setShow] = useState(false);
   const [iosInstructions, setIosInstructions] = useState(false);
+  const [manualInstructions, setManualInstructions] = useState(false);
   const [justInstalled, setJustInstalled] = useState(false);
 
   useEffect(() => {
@@ -76,7 +81,12 @@ export default function InstallPrompt() {
       return;
     }
     if (!deferred) {
+      // El navegador no ofreció el instalador automático (pasa en Firefox,
+      // Safari de escritorio, o si Chrome aún no detectó suficiente
+      // interacción). En vez de no hacer nada, mostramos instrucciones
+      // manuales para que la persona pueda instalarla igual.
       setShow(false);
+      setManualInstructions(true);
       return;
     }
     await deferred.prompt();
@@ -123,24 +133,25 @@ export default function InstallPrompt() {
       {iosInstructions && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-deep-900/50 p-4">
           <div className="w-full max-w-md rounded-xl2 bg-white p-6 shadow-soft">
-            <h2 className="text-xl font-semibold text-deep-800 mb-4">Instala Travesías AnSup en tu iPhone</h2>
+            <h2 className="text-xl font-semibold text-deep-800 mb-4">Instala Travesías AnSup en tu iPhone o iPad</h2>
             <ol className="space-y-4 text-sm text-deep-700">
               <li className="flex gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-700 font-semibold">1</span>
-                Abre esta página utilizando Safari.
+                Abre esta página utilizando <strong>Safari</strong> (no funciona desde Chrome en iPhone/iPad).
               </li>
               <li className="flex gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-700 font-semibold">2</span>
                 Presiona el botón <strong>Compartir</strong>&nbsp;
-                <svg className="inline" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 7l4-4 4 4M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6" stroke="#0E3A4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>.
+                <svg className="inline" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v12M8 7l4-4 4 4M5 13v6a2 2 0 002 2h10a2 2 0 002-2v-6" stroke="#0E3A4C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                &nbsp;(la barra de abajo o de arriba, según el modelo).
               </li>
               <li className="flex gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-700 font-semibold">3</span>
-                Selecciona <strong>“Agregar a pantalla de inicio”</strong>.
+                Desliza y selecciona <strong>"Agregar a pantalla de inicio"</strong>.
               </li>
               <li className="flex gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal-100 text-teal-700 font-semibold">4</span>
-                Confirma presionando <strong>“Agregar”</strong>.
+                Confirma presionando <strong>"Agregar"</strong>.
               </li>
             </ol>
             <div className="flex flex-col gap-3 mt-6">
@@ -149,6 +160,36 @@ export default function InstallPrompt() {
               </button>
               <button onClick={() => { setIosInstructions(false); continuarWeb(); }} className="text-sm font-medium text-deep-600 underline underline-offset-2">
                 Continuar en la versión web
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {manualInstructions && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-deep-900/50 p-4">
+          <div className="w-full max-w-md rounded-xl2 bg-white p-6 shadow-soft">
+            <h2 className="text-xl font-semibold text-deep-800 mb-4">Instala Travesías AnSup</h2>
+            <p className="text-sm text-deep-600 mb-4">
+              Tu navegador no ofreció la instalación automática. Puedes instalarla manualmente:
+            </p>
+            <div className="space-y-4 text-sm text-deep-700">
+              <div>
+                <p className="font-semibold mb-1">En computador — Chrome o Edge</p>
+                <p>Busca el ícono de instalación ⊕ o 💻 en la barra de direcciones (a la derecha, junto a la URL) y haz clic ahí.</p>
+              </div>
+              <div>
+                <p className="font-semibold mb-1">En celular Android — Chrome</p>
+                <p>Abre el menú ⋮ (tres puntos, arriba a la derecha) → busca <strong>"Instalar aplicación"</strong> o <strong>"Agregar a pantalla de inicio"</strong>.</p>
+              </div>
+              <div>
+                <p className="font-semibold mb-1">Firefox o Safari de escritorio</p>
+                <p>Estos navegadores no soportan instalar aplicaciones web todavía. Puedes seguir usando el sitio normalmente, o abrirlo desde Chrome/Edge para instalarlo.</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 mt-6">
+              <button onClick={() => { setManualInstructions(false); continuarWeb(); }} className="btn-primary w-full">
+                Entendido
               </button>
             </div>
           </div>
